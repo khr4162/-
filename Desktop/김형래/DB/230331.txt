@@ -1,0 +1,144 @@
+drop trigger if exists insert_attend;
+delimiter //
+create trigger insert_attend after insert on attend
+for each row begin
+update course set co_degree = co_degree + 1
+where co_code = new.at_co_code;
+end//
+delimiter ;
+
+insert into attend(at_stb_num, at_co_code, at_year, at_term, at_mid, at_final, at_attend, at_hw)
+values(2019160123, '20201ipc001', 2023, 1, 40, 35, 8, 9);
+
+drop trigger if exists update_attend;
+delimiter //
+create trigger update_attend after update on attend
+for each row begin
+update course set co_degree = co_degree - 1
+where co_code = old.at_co_code;
+update course set co_degree = co_degree +1
+where co_code = new.at_co_code;
+end//
+delimiter ;
+
+case
+when co_code = new.at_co_code then co_degree - 1
+when co_code = old.at_co_code then co_code;
+end;
+
+update attend set at_co_code = '20202ipc002'
+where at_num = 17;
+
+프로시저
+drop procedure if exists select_buy;
+delimiter //
+create procedure select_buy(
+in in_product_name varchar(45))
+begin
+select costomer from buy 
+where product_name = in_product_name;
+end//
+delimiter ;
+
+call select_buy('피트니스상의');
+
+drop procedure if exists delete_buy;
+delimiter //
+create procedure delete_buy(
+in in_product_name varchar(45),
+in in_costomer varchar(20))
+begin
+delete from buy 
+where product_name = in_product_name 
+and costomer = in_costomer;
+select * from buy;
+end//
+delimiter ;
+
+drop procedure if exists insert_buy;
+delimiter //
+create procedure insert_buy(
+in in_costomer varchar(20),
+in in_product_name varchar(45),
+in in_price int,
+in in_amount int)
+begin
+insert into buy(costomer, product_name, price, amount)
+values(in_costomer, in_product_name, in_price, in_amount);
+update buy set total = price*amount;
+select * from buy;
+end//
+delimiter ;
+
+call insert_buy('태종', '피트니스상의', 30000, 5)
+
+drop procedure if exists insert_buy2;
+delimiter //
+create procedure insert_buy2(
+in in_num int,
+in in_costomer varchar(20),
+in in_amount int)
+begin
+declare _name varchar(45);
+declare _price int;
+select name, price into _name, _price from product
+where num = in_num;
+insert into buy(costomer, product_name, price, amount)
+values(in_costomer, _name, _price, in_amount);
+update buy set total = price*amount;
+select * from buy;
+end//
+delimiter ;
+
+call insert_buy2(2, '정조', 2);
+
+drop procedure if exists insert_buy1;
+delimiter //
+create procedure insert_buy1(
+in in_name varchar(20),
+in in_pname varchar(20),
+in in_price int,
+in in_amount int)
+begin
+insert into buy(costomer, product_name, price, amount)
+values(in_name, in_pname, in_price, in_amount);
+update buy set total = price * amount;
+select * from buy;
+end//
+delimiter ;
+
+call insert_buy1('세종', '양면 롱 후리스 자켓', 23000, 2);
+
+update st_point set 
+
+select st_point from student
+join attend on at_st_num = st_num
+join course on at_co_num = co_num
+join subject on co_su_num = su_num
+=case when at_repetition ='n' then st_point=su_point
+else st_point = 0
+where su_num=co_su_num
+end;
+
+
+drop procedure if exists update_point;
+delimiter //
+create procedure update_point()
+begin
+update student set st_point=
+(select sum(su_point) from attend
+join course on co_num=at_co_num
+join subject on su_num=co_su_num
+where at_repetition ='n' and st_num = at_st_num);
+select * from student;
+end//
+delimiter ;
+
+select st_name, sum(su_point) from attend
+join student on st_num=at_st_num
+join course on co_num=at_co_num
+join subject on su_num=co_su_num
+where at_repetition ='n'
+group by st_name;
+
+call update_point();

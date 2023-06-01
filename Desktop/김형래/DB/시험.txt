@@ -1,0 +1,169 @@
+create or replace view term1_view as
+select distinct stb_num as '학번', stb_name as '이름'
+from student as a, attend as b
+where at_term = 1
+
+update attend set at_mid = 34 ,at_final = 13, at_attend =10, at_hw = 10
+where  at_num=9;
+update attend set at_mid = 40 ,at_final = 35, at_attend =10, at_hw = 10
+where  at_num=10;
+update attend set at_mid = 35 ,at_final = 32, at_attend =7, at_hw = 5
+where  at_num=11;
+update attend set at_mid = 34 ,at_final = 38, at_attend =4, at_hw = 6
+where  at_num=12;
+update attend set at_mid = 31 ,at_final = 25, at_attend =7, at_hw = 8
+where  at_num=13;
+update attend set at_mid = 35 ,at_final = 40, at_attend =9, at_hw = 7
+where  at_num=14;
+update attend set at_mid = 31 ,at_final = 25, at_attend =10, at_hw = 10
+where  at_num=15;
+update attend set at_mid = 28 ,at_final = 25, at_attend =7, at_hw = 5
+where  at_num=16;
+
+drop procedure if exists select_name;
+delimiter //
+create procedure select_name (
+in in_name varchar(20))
+begin
+select stb_num as '학번', stb_name as '이름', co_name as '과목' from student
+join attend on stb_num = at_stb_num
+join course on co_code = at_co_code
+where in_name = stb_name;
+end//
+delimiter ;
+
+create table member(
+id varchar(10),
+name varchar(10) not null,
+age int,
+address varchar(60) not null,
+primary key(id));
+
+create table order1(
+order_num varchar(10),
+order_customer varchar(10) not null,
+order_product varchar(20) not null,
+order_amount int not null,
+order_date date,
+primary key(order_num));
+
+alter table order1 add
+foreign key(order_customer) references member(id);
+
+insert into member(id, name, age, address)
+values('dragon', '박문수', 20, 'seoul');
+insert into member(id, name, age, address)
+values('sky', '김유신', 30, 'busan');
+insert into member(id, name, age, address)
+values('blue', '이순신', 25, 'incheon');
+
+insert into order1(order_num, order_customer, order_product, order_amount, order_date)
+values('o01', 'sky', 'cake', 1, '2022-04-05');
+insert into order1(order_num, order_customer, order_product, order_amount, order_date)
+values('o02', 'blue', 'croquette', 3, '2022-04-10');
+insert into order1(order_num, order_customer, order_product, order_amount, order_date)
+values('o03', 'sky', 'bread', 5, '2022-04-22');
+insert into order1(order_num, order_customer, order_product, order_amount, order_date)
+values('o04', 'blue', 'donut', 2, '2022-04-30');
+insert into order1(order_num, order_customer, order_product, order_amount, order_date)
+values('o05', 'dragon', 'bread', 4, '2022-05-02');
+insert into order1(order_num, order_customer, order_product, order_amount, order_date)
+values('o06', 'sky', 'baguette', 2, '2022-05-10');
+insert into order1(order_num, order_customer, order_product, order_amount, order_date)
+values('o07', 'dragon', 'riceburn', 7, '2022-04-25');
+
+select * from member
+where name like concat('%','신','%')
+order by id desc;
+
+select order_product as '주문제품', order_amount as '수량' from order1
+join member on id=order_customer
+where name='김유신';
+
+create view great_order as
+select id as '고객아이디', order_product as '제품', 
+order_amount as '수량', order_date as '일자'
+from order1, member
+where order_amount >=3;
+
+select at_score as '학점', avg(at_mid) as '중간', avg(at_final) as '기말', 
+avg(at_attend) '출석', avg(at_homework) as '과제' from attend
+group by at_score
+order by at_score;
+
+select su_title as '수업', sum(at_mid) as '중간', sum(at_final) as '기말', 
+sum(at_attend) '출석', sum(at_homework) as '과제' from attend
+join course on at_co_num = co_num
+join subject on co_su_num = su_num
+group by su_title
+order by su_title;
+
+select st_name as '재수강자 명단' from student
+join attend on st_num = at_st_num
+where at_repetition = 'y'; 
+
+select st_name as '이름', sum(su_point) as '학점' from student
+join attend on st_num = at_st_num
+join course on at_co_num = co_num
+join subject on co_su_num = su_num
+where at_repetition = 'n'
+group by st_name
+order by st_name;
+
+update student set st_point =(
+select sum(su_point) from subject
+join course on co_su_num = co_num
+join attend on co_num = at_co_num
+join student on at_st_num = st_num
+where at_repetition = 'n' and st_name = '강군')
+where st_name = '강군';
+
+select su_point as '학점' from subject
+join course on co_su_num = co_num
+join attend on co_num = at_co_num
+where at_repetition = 'n'
+group by st_name
+order by st_name;
+
+select at_st_num as'학번', st_name as'이름', su_title as'과목명', 
+co_year as'년도', co_term as'학기' from student
+join attend on st_num = at_st_num
+join course on at_co_num = co_num
+join subject on co_su_num = su_num;
+
+create or replace view pass_view as
+select distinct st_num as '학번', st_name as'이름', su_title as'과목', at_score as'학점'
+from student, attend, subject
+where at_pass ='p'
+order by st_name;
+
+create or replace view kim_view as
+select su_title as '과목이름', at_score as'학점', su_point as'점수',
+su_time as'시간' from student
+join attend on st_num=at_st_num
+join course on at_co_num=co_num
+join subject on su_num=co_su_num
+where st_name = '김영철'
+order by st_name;
+
+update product set amount = 50;
+
+insert into buy(costomer, product_name, price, amount)
+values('홍길동', '순면라운드 반팔티', 15900, 5);
+
+SELECT TRIGGER_NAME, STATUS
+FROM USER_TRIGGERS
+WHERE FABLE_NAME = 'buy';
+
+insert into buy(costomer, product_name, price, amount)
+values('홍길동', '롱 패딩 점퍼', 47400, 10);
+
+alter table buy add sum int;
+
+update buy set total = sum*0.9;
+
+select concat(name, '(할인상품)') as '제품명', price as '가격' from product
+where price >=30000;
+
+select name as'이름', price as'가격', amount as'수량' from product
+where price >=30000;

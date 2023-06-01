@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>String_method</title>
+  </head>
+  <body>
+    <h1>가장 많이 다루는 데이터 타입 : string</h1>
+    <ul>
+      <li>문자열 데이터는 index(0부터 시작)를 가지고 있음.</li>
+      <li>문자열 데이터 값 내에서는 개행(br)하는 것을 추천하지 않음</li>
+      <li>new string(); 객체 타입으로 선언은 가능하나 추천하지 않음</li>
+      <li>length : 문자열의 총 길이 => index는 length-1</li>
+      <li>
+        <script>
+          let str = "문자열 사이의 <script> 글자 삽입";
+          console.log(str);
+        </script>
+      </li>
+    </ul>
+    <h1>
+      문자관련 메서드 : java에서 사용하면 string 메서드와 비슷 (다른 프로그래밍
+      언어도 비슷)
+    </h1>
+    <ul>
+      <li>문자 추출 관련 메서드 : substing(), substr(), slice()</li>
+      <li>
+        문자 대체 메서드 : replace(oldstr, newstr) : 첫번째 매칭되는 문자만,
+        대소문자 구분
+      </li>
+      <li>trim() : 문자열 양측 공백 제거</li>
+      <li>
+        padstart(목표문자길이, 채울문자) / padend : 앞쪽에서 / 뒷쪽에서 채우기
+        <br />
+        문자 값의 힌트, 010101-*******
+      </li>
+      <li>charat(index) : 해당 index 문자 추출</li>
+      <li>indexof("str") : 문자열의 위치를 반환</li>
+      <li>
+        startwith("str") / endwith("str") : <br />
+        지정 문자열이 탐색대상 문자열에서 시작/끝에 존재하는지 확인하는
+        메서드<br />
+        return=> true / false
+      </li>
+    </ul>
+    <script>
+      let str1 = "apple, banana, orange";
+      let startindex = 0;
+      let endindex = 5; // 미포함
+      console.log(str1.slice(startindex, endindex));
+      console.log(str1.slice(7)); //index부터 끝까지
+      console.log(str1.slice(-6));
+      //slice는 substring과 사용방법이 같음.
+      //slice는 index에 -숫자를 입력하면 뒤에서부터 추출
+
+      //substr(index, count); 시작 위치에서부터 몇개까지 추출
+      console.log(str1.substr(0, 5));
+
+      //replace
+      let text = "hello java world~!!";
+      let newtext = text.replace("java", "javascript");
+      console.log(newtext);
+      newtext = text.replace(/JAVA/i, "javascript"); //대소문자 구분x
+      console.log(newtext);
+      text = "hello java world java~!!";
+      newtext = text.replace(/JAVA/gi, "javascript"); //문자열 전체적용
+      console.log(newtext);
+
+      let trimtext =
+        "                                 이번 주 학습 과정       ";
+      console.log(trimtext.trim());
+
+      //padstart(전체 문자열 갯수, "str") /padend
+      let padtext = "abc의 정의";
+      console.log(padtext.padEnd(20, "*"));
+
+      //000101-1234567 => 000101-1******
+
+      let number = "000101-1234567";
+      console.log(number.substr(0, 8).padEnd(14, "*"));
+      if (number.charAt(7) == "1") {
+        console.log("남자입니다");
+      } else {
+        console.log("여자입니다");
+      }
+    </script>
+  </body>
+</html>

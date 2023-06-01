@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        text-align: center;
+      }
+      h1 {
+        border: 5px solid;
+        margin: 10px auto;
+        width: 12%;
+        /* margin : 10px; 상하좌우 전체
+           margin : 30px auto; 상하 / 좌우
+           순서 - top, right, bottom, left
+        */
+      }
+      li {
+        font-size: 20px;
+        display: inline;
+        list-style: none;
+        margin: 10px auto;
+        color: blue;
+      }
+      .home {
+        font-weight: 700;
+      }
+    </style>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form action="">
+      <h1>Travel</h1>
+      <ul>
+        <li><a id="home" class="links1" onclick="clickCity(this);">Home</a></li>
+        <li>
+          <a id="seoul" class="links2" onclick="clickCity(this);">Seoul</a>
+        </li>
+        <li>
+          <a id="tokyo" class="links3" onclick="clickCity(this);">Tokyo</a>
+        </li>
+        <li>
+          <a id="paris" class="links4" onclick="clickCity(this);">Paris</a>
+        </li>
+      </ul>
+      <img src="/도시/home.jpg" alt="Home" id="cityImg" />
+    </form>
+    <script>
+      function clickCity(elem) {
+        let idVal = elem.id;
+        let clsVal = elem.classList[0];
+        console.log(idVal);
+        console.log(clsVal);
+        document.getElementById("cityImg").src = `/도시/${idVal}.jpg`;
+      }
+
+      //   const clickCity = (elem) => {
+      //     let idVal = elem.id;
+      //     let clsVal = elem.classList[0];
+      //     document.getElementById("cityImg").src = `/도시/${idVal}.jpg`;
+      //   };
+    </script>
+  </body>
+</html>

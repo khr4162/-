@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>선택자 연습문제</title>
+    <style>
+      a {
+        text-decoration: none;
+      }
+      a:link {
+        color: wheat;
+      }
+      a:visited {
+        color: tomato;
+      }
+      a:active {
+        color: rosybrown;
+      }
+
+      div {
+        font-size: 50px;
+      }
+      .naver:hover {
+        color: green;
+        font-style: italic;
+      }
+      #google:hover {
+        color: darkcyan;
+      }
+      ul {
+        font-size: 50px;
+      }
+      li:first-child {
+        font-weight: 700;
+      }
+      li:nth-child(10) {
+        font-weight: 700;
+      }
+      li:nth-child(2n) {
+        color: crimson;
+      }
+      li:nth-child(3n) {
+        color: greenyellow;
+      }
+      li::after {
+        content: " 번째";
+      }
+      li::before {
+        content: "li 태그 ";
+      }
+      /* a tag는 링크를 클릭했는지에 따라서 글꼴 색이 달라지는 태그
+        가상선택자(의사선택자)
+        a:active(클릭할때 색)    a:visited(링크를 눌러본 후 색)
+        */
+    </style>
+  </head>
+  <body>
+    <!-- 
+        div 3개를 만들어
+        하나는 네이버에 연결
+        하나는 구글에 연결
+        하나는 다음에 연결
+        네이버는 초록색, 구글은 암거나, 다음도 암거나
+        글자색과 모양을 달리 스타일을 주세요 -->
+    <div class="naver">
+      <a href="http://www.naver.com" target="_blank">naver</a>
+    </div>
+    <div id="google">
+      <a href="http://www.google.com" target="_blank">google</a>
+    </div>
+    <div>
+      <a href="http://www.daum.net" target="_blank">daum</a>
+    </div>
+    <div>
+      <a href="http://www.youtube.com" target="_blank">youtube</a>
+    </div>
+
+    <!--
+        전체 글자크기, 굵기 크게 
+        짝수 : 빨간색
+        3, 6, 9 : 초록색
+        1, 10 : 굵게 -->
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+      <li>8</li>
+      <li>9</li>
+      <li>10</li>
+    </ul>
+  </body>
+</html>

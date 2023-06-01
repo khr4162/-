@@ -1,0 +1,6 @@
+단어장
+cat : 고양이
+dog : 개
+hello : 안녕
+water : 물
+whale : 고래

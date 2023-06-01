@@ -1,0 +1,53 @@
+
+
+mysql ->download -> mysql community downloads
+
+CHAR(10) : 고정길이 문자
+VARCHAR(10) : 가변길이 문자
+CURRENT_TIMESTAMP : 오늘날짜+시간
+NOW() : 날짜 + 시간
+
+숫자
+(정수)
+- BIT(m) : 1~64 BINARY 값을 지정
+- BOOL : 0=FALSE, 1 = TRUE == TINYIINT(1)
+- TINTINT(m) : 작은수를 표현 0~255 부호가 있다면 (-128~127)
+- SMALLINT(m) :  2byte만큼 나타낼수 있다.
+- MIDIUMINT(m) : 3byte만큼 나타낼수 있다.
+- INT(m) : 4byte => java int  동일
+- BIGINT(m) : 8byte => java long 동일
+
+(실수)
+-FLOAT(m,d) : 실수 표현 => 정밀도가 작은 부동소수점 표현
+-DOUBLE(m,d) : 정밀도가 큰 부동소수점 표현
+
+(문자)
+-CHAR(m) : 고정길이 문자열(0~255)
+-VARCHAR(m) : 가변길이 문자열(0~65536)
+-TINYTEXT : 1BYTE 문자열 저장 가변길이
+-TINYBLOB : 1BYTE 무자열 자정 가변길이
+-TEXT : 2BYTE 문자열 저장 
+-BLOB : 바이너리데이터 저장용
+-MIDIUMTEXT : 3BYTE
+-MIDIUMBLOB
+-LONGTEXT : 4BYTE
+-LONGBLOB
+
+(날짜)
+- DATE : 날짜표현
+- DATETIME : 날짜 + 시간
+- TIMESTAMP : INSERT, UPDATE 연산에 유리한 형태
+- YEAR : 연도만
+- TIME : 시간만
+
+(제약조건)
+- NN : Not Null -> 데이터 값을 null이 오지못하게 막아줌
+- UQ : Unique => 값이 중복될 수 없음 ex) 주민번호, 학번
+- AI : Auto Increment => 자동 증가 (정수만 체크가능)
+- PK : Primary Key => 기본키 속성 추가 (NN이 같이 추가됨)
+
+- B : 바이너리(2진값)
+- UN : Unsigned => 항상 0보다 크거나 같게 (음수를 못오게)
+- ZF : Zero Fill => 숫자앞에 0을 채울경우 ex) 00001
+- G : Generate => 속성 자동생성
+

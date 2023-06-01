@@ -1,0 +1,31 @@
+-ujavauser -pmysql
+board member 생성
+
+Create table member(
+mno int auto_increment,
+id varchar(100),
+password varchar(100),
+email varchar(100),
+age int,
+reg_date datetime default now(),
+last_login datetime default null,
+Primary key(mno)); 
+
+Create table board(
+bno int not null auto_increment,
+title varchar(100) not null,
+writer varchar(100) not null,
+content text,
+reg_date datetime default now(),
+read_count int default 0,
+image_file text,
+Primary key(bno));
+
+create table comment(
+cno int not null auto_increment,
+bno int default 0,
+writer varchar(100) default "unknown",
+content varchar(1000) not null,
+reg_date datetime default now(),
+primary key(cno));
+

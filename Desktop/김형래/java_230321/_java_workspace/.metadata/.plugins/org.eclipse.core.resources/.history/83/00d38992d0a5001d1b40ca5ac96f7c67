@@ -1,0 +1,36 @@
+package day05;
+
+import java.util.Scanner;
+
+public class 배열연습3 {
+
+	public static void main(String[] args) {
+		/* 5자리 숫자를 입력받아서 입력받은 숫자를 거꾸로 출력
+		 * 각 자리 수 합계 출력
+		 * ex) 11456 => 65411 => 6+5+4+1+1
+		 * ex) 19874 => 47891 => 6+7+8+9+1
+		 * 클럽에 제출
+		 * %, /
+		 */
+		
+		int arr[] = new int[5];
+		Scanner scan = new Scanner(System.in);
+		int sc = scan.nextInt();
+		
+		int a = sc/1;
+		int b = sc/10;
+		int c = sc/100;
+		int d = sc/1000;
+		int e = sc/10000;
+		System.out.println(e+d+c+b+a);
+		System.out.println();
+		
+		for(int i=0; i<arr.length; i++) {
+			
+		}
+		
+		
+
+	}
+
+}

@@ -1,0 +1,464 @@
+데이터베이스 생성
+
+Create database 데이터베이스명;
+=> create database ezen;
+-> 마무리가 안되서 다음 줄로 이어짐
+-> ; 기호로 마무리를 해줘야 함.
+생성한 DB를 사용하려면 use ezen  ezen DB를 사용할 예정
+----------------------------------------------
+테이블 생성
+
+Create table 테이블명(
+Num int not null,
+Name varchar(30) not null,
+Age int default 20,
+Address varchar(45),
+Major varchar(45),
+Score int ,
+Primary key(num)
+);
+----------------------------------------------
+테이블 안의 내용 추가 – insert문
+
+Insert into ~ values;
+Insert into 테이블명(속성1, 속성2, 속성3…) value
+(‘값1’, ‘값2’, ‘값3’,…);
+
+insert into student (num, name, age, address, major, score)
+ value(6666, '김형래', 27, 'incheon', 'computer', 100);
+----------------------------------------------
+테이블 구조 수정(Alter)
+
+칼럼 추가(add)
+Alter table 테이블명 add column 추가칼럼명  속성나열;
+
+칼럼 변경(modify) : 속성만 변경
+Alter table 테이블명 modify column 변경칼럼명 속성나열(모든속성);
+
+칼럼 변경(change) : 이름도 변경
+Alter table 테이블명 change column (전)칼럼명1 (후)칼럼명2 속성나열(모든속성);
+
+칼럼 삭제(drop)
+Alter table 테이블명 drop column 삭제칼럼명;
+
+테이블 이름 변경(rename)
+Alter table (변경 전)테이블명 rename (변경 후)테이블명; 
+----------------------------------------------
+테이블 튜플(안에 있는 데이터) 삭제
+
+Delete from 테이블명 where 조건
+
+Delete from student where num = 4444;
+---------------------------------------------
+테이블 튜플(안의 데이터) 변경
+
+Update 테이블명 set 바꿀 칼럼 = ‘값‘
+Where 조건
+
+Update student set major = ‘computer’
+Where num = 4444;
+----------------------------------------------
+
+Between A and B : 숫자의 범위를 찾을때
+In(‘요소’) : or를 축약한 형태
+Select distinct 칼럼 from 테이블; : 중복삭제
+----------------------------------------------
+Select 검색하고자 하는 필드 명 from 필드 명
+Where 조건 (없으면 생략 가능)
+Group by 묶고자 하는 값의 필드 명(없으면 생략 가능)
+Having 그룹의 조건(없으면 생략 가능)
+Order by 정렬 필드(없으면 생략 가능) – 항상 가장 마지막
+----------------------------------------------
+단어를 포함하는 값을 조건으로 줄때 like
+mysql> select * from student
+    -> where address like 's%';
+where dep not like '%학과'
+
+'s%' = 앞, '%s' = 뒤, '%s%' = 어디든 상관없음
+-----------------------------------------------
+Distinct : 중복 제거
+If not exists / if exists (없다면… 존재하지 않는다면…)
+If exists (있다면… 존재 한다면…)
+산술연산자(+-*/)는 사용 가능하지만 잘 쓰이진 않음(앞에 select)
+산술연산시 null을 포함한 계산은 null로 처리
+비교연산(>,<,<=,>=,=,<>)
+논리연산(and, or, not)
+우선순위결정 ( )
+Limit 0, 3 : 앞에는 시작 번지, 뒤에는 갯수
+
+-------------------------------------------------
+집약과 정렬
+
+집약 : 열의 데이터를 합계, 평균 같은 집계 값을 구하기 위한 집약함수
+Count : 검색된 행의 개수
+Sum : 합계
+Avg : 평균
+Max : 최대값
+Min : 최소값
+Group by : 데이터별로 묶음
+Having : 그룹의 조건
+Order by : 정렬에 대한 기준은 여러 개 줄 수 있음. Desc 내림차순
+
+-------------------------------------------------
+그룹별로 정리
+
+select major, count(major) from student
+-> group by major;
++----------+--------------+
+| major    | count(major) |
++----------+--------------+
+| computer |            5 |
+| english  |            1 |
+| math     |            1 |
++----------+--------------+
+
+/* 학과별로 점수 합계*/
+select major, sum(score)as '점수합계' from student group by major;
+(sum 뒤에 as '별칭')
++----------+----------+
+| major    | 점수합계 |
++----------+----------+
+| computer |      417 |
+| english  |       87 |
+| math     |       95 |
++----------+----------+
+
+---------------------------------------------------
+Student_4를 생성. Student 테이블과 같은 구조로 생성
+Create table new_table(복사본) like table(원본)
+create table if not exists student_4 like student;
+=>원본 테이블의 구조를 복사하여 새 테이블 생성
+Grade가 4인 학생만 student_4로 이동
+Insert into문을 활용
+Values => select * from student where grade = 4;
+insert into student_4(num, name, age, address, major, score, grade)
+    -> select * from student where grade = 4;
+Student grade 4인 학생은 삭제
+Grade 1씩 증가
+Update from student where grade=grade+4;
+
+create table product(
+num int auto_increment,
+type_a varchar(30),
+type_b varchar(30),
+name varchar(50),
+price int,
+amount int,
+sale_amount int,
+register_date date,
+primary key (num));
+
+insert into product(type_a, type_b, name, price, amount, sale_amount, register_date)
+values('아우터', '패딩', '롱 패딩 점퍼', 47400, 10, 45, '2020-11-01');
+
+create table buy(
+num int auto_increment not null,
+costomer varchar(20),
+product_name varchar(20),
+price int default 0,
+amount int default 0,
+buy_date timestamp,
+primary key(num));
+
+insert into buy(costomer, product_name, price, amount, buy_date)value
+('홍길동', '폴라티셔츠', 15000, 3, current_timestamp);
+insert into buy(costomer, product_name, price, amount)
+select '홍길동', name, price, 3 from product where num=5;
+-------------------------------------------------------------------
+트랜잭션
+
+Start transaction
+명령어 1;
+명령어 2;
+…
+Commit; / rollback;
+Commit : 작업 반영
+Rollback : 작업 취소
+
+SQL 내장 함수
+
+숫자함수
+산술연산(+ - * /)
+Mod(값, 값2) : 값을 값2로 나눈 나머지
+Round(값, 자리 수) : 반올림(자리 수 지정)
+Ceiling : 올림 / floor : 버림
+Sqrt : 루트 / pow : 제곱
+Rand() : 0~1사이의 아무 숫자
+
+문자열 함수
+Concat(문자1, 문자2) : 문자열 연결
+Length(문자) : 문자의 길이 : 한글*2, 영어*1
+Char_length(문자) : 무조건 1글자로 인식
+Substr(문자열, 시작, 개수) : 시작 위치에서 개수만큼 추출
+(Substring(문자열, 시작 번지, 끝 번지) : 끝 번지는 포함 안함)
+Left(문자열, 개수) : 앞에서부터 개수만큼 추출
+Right(문자열, 개수) : 끝에서부터 개수만큼 추출
+Mid(문자열, 시작, 개수) : 시작 위치에서 개수만큼 추출
+Replace(문자, old, new) : 문자열에서 old 문자를 new 문자로 변경
+Insert(문자, 위치, 길이, 삽입할 문자) : 문자에서 위치의 길이만큼 지우고 삽입
+Ucase(문자) : 대문자변환 / icase(문자) : 소문자변환
+Space(숫자) : 숫자만큼 공백 추가
+
+Trim(문자) : 공백제거
+ltrim : 왼쪽에서 제거 / rtrim : 오른쪽에서 제거
+Trim(both ’a’ from ‘aaaabcdaaaaa’) =>bcd
+Both = 양쪽 / 앞(leading) / 뒤(trailing)
+Lpad(문자, 총 길이, 채울 문자) / rpad : 앞/ 뒤쪽 총 길이만큼 삽입하고, 공백에 문자 채우기
+Repeat(문자열, 횟수) : 문자열을 횟수만큼 반복
+Reverse(문자열) : 문자열을 거꾸로 출력
+Bin(2진)/oct(8진수)/hex(16진수) : 값을 해당 진수로 변환
+
+날짜함수
+Adddate / subdate : 날짜를 기준으로 ~후, ~전의 날짜
+Adddate(날짜, interval 7 day)
+Interval 뒤쪽 값 : year, month, day, hour, minute, second
+Curdate(), curtime(), now(), sysdate() : 오늘 날짜 시간
+Addtime / subtime : 시간을 기준으로 ~후, ~전의 시간
+Addtime(‘날짜와 시간’, ’시:분:초’)
+Year(날짜), month(), day(), hour(), minute(), second() : 년, 월, 일, 시, 분, 초 추출
+Date(날짜), time(날짜) : 날짜 / 시간 추출
+
+Datediff(날짜1, 날짜2) / timediff(시간 또는 날짜/시간, 날짜)
+날짜 2에서 날짜 1까지 남은 날짜 / 시간 반환
+예시 : select datediff('2023-08-07', now());
+Dayofweek(날짜) : 요일(일=1, 월=2)
+Monthname(날짜) : 월의 영어 이름 반환
+Dayofyear(날짜) : 1년 중 몇일이 경과 했는지 반환
+Last_day(날짜) : 날짜의 월이 몇일까지 있는지 확인
+Time_to_sec(시간) : 시간을 초 단위로 반환
+
+Mysql에서도 변수 사용 가능.
+Set @변수 명 = 값
+
+
+논리 함수
+If(조건식, 참, 거짓)
+If(조건식, true, if(조건식, true, false)) : 다중 if문
+Case ~ when ~ then 문
+Select Case
+When 조건 then 값
+When 조건 then 값
+Else 값
+End;
+
+정보함수
+User(), current_user(), session_user() : 현재 사용자
+Database(), schema() : 현재 사용 중인 db명 반환
+
+update student set ranking =
+case when score >=80 then "A"
+when score >=60 then "B"
+else "C"
+end;
+
+null인 자료 찾기
+SELECT 컬럼명
+FROM 테이블명
+WHERE 컬럼명 IS NULL;
+
+null인 자료 채우기
+SELECT IFNULL(컬럼명, 컬럼이 NULL일 경우 대체할 데이터)
+FROM 테이블명;
+
+product 테이블
+
+10월 포함 이전에 입고된 상품 출력
+각 type _a 별 판매량(sale_amount) 합계/ 판매량이 많은 순으로 내림차순 정렬
+select type_a, sum(sale_amount) from product
+group by type_a order by sum(sale_amount) desc;
+
+월별 판매량 합계/ 월별 오름차순 정렬
+select month(register_date), sum(sale_amount) from product
+group by month(register_date)
+order by month(register_date);
+
+Date_format(날짜, ‘%y-%m’) 연-월만
+
+select max(sum) from(
+select sum(sale_amount)as sum from product group by type_a)as p;
+
+서브쿼리
+select max(sum) from(
+select sum(sale_amount)as sum from product group by type_a)as p;
+
+ERD 다이어그램 툴 추천
+GitMind
+Gliffy
+Visual Paradigm
+Draw.io
+Lucidchart
+SqlDBM
+DBDiagram.io
+QuickDBD
+ERDCloud
+
+join
+여러 개의 테이블을 묶어 하나의 테이블로 만들어 사용하는 것
+원하는 데이터가 다른 테이블에 흩어져 있을 때 join을 사용
+내부 조인(inner join), 외부조인(outer join)
+Select 열 목록 from 기준테이블명 
+(Inner) join 참조테이블명
+On 조인조건(fk키)
+(where 조건)
+(group by / having)
+(Order by) 
+예시
+select at_stb_num, stb_name from attend
+join student
+on at_stb_num = stb_num
+where at_score = 'A';
+
+join 다음에 on은 한 셋트
+다중 join
+join 테이블명
+on 조인조건
+join 테이블명
+on 조인조건
+
+outer join(left join, right join)
+Select 열목록 from 기준테이블명(left)
+left join 참조테이블명(right)
+On 조인조건 (fk연결)
+(where 조건)
+(group by / hving)
+(order by)
+
+외래키 테이블 락 걸기
+lock tables course write, attend write;
+
+외래키 지우기
+alter table attend drop foreign key attend_ibfk_2;
+
+외래키 설정
+alter table attend add foreign key(at_co_num)reference course(co_num);
+
+속성 넣기(ai)
+alter table course modify co_num int not null auto_increment;
+
+락 해제
+unlock tables;
+
+auto_increment 값 초기화
+alter table 이름 auto_increment = 값;
+
+index 인덱스
+테이블의 조회 속도를 높여주는 자료 구조
+조회 속도는 빨라지지만 update, insert, delete는 속도가 저하됨
+MYSQL (INDEX(MYI)파일에 저장
+인덱스는 하나 또는 여러 개 칼럼에 대해 설정 가능
+(여러 칼럼을 묶어 하나의 인덱스로도 설정 가능)
+인덱스는 where 절 뒤에서 사용할때만 성능에 영향을 끼침
+Order by, group by에 대한 index에도 영향을 미침
+
+index를 타지 않는 경우
+복수의 키에 대해 order by 하는 경우
+연속하지 않은 칼럼에 대해 order by를 실행한 경우
+Group by 칼럼 order by의 칼럼이 다를 경우
+Order by 칼럼을 변형시켜 사용할 경우
+다중 칼럼 인덱스는 단일 칼럼 인덱스보다 더 비효율적임
+
+index 설정 - 테이블 생성
+Create table 테이블명(
+칼럼 속성,
+칼럼 속성,
+Primary key(칼럼),
+Key 인덱스명(칼럼),
+Key 인덱스명(칼럼));
+Key 인덱스명(칼럼, 칼럼) – 다중 칼럼 인덱스
+
+Creat table table(
+Id int not null,
+Name varchar(10),
+Address varchar(20),
+Primary key(id),
+Key idx_name(name));
+
+index 생성 - 기존 테이블에 추가
+인덱스 생성
+Create index idex_name on 테이블명(칼럼명);
+테이블에 추가
+Alter table 테이블명 add index 인덱스명 (칼럼명);
+인덱스 보기
+Show index from 테이블명;
+인덱스 삭제
+Alter table 테이블명 drop index 인덱스명;
+
+view - 뷰 생성
+데이터베이스에서 존재하는 일종의 가상 테이블
+실제 데이터를 저장하고 있지 않음(물리적으로 존재 x)
+보여주시기만 가능(insert, update, delete는 불가능)
+뷰는 index를 가질 수 없다.
+Create view view_name as
+Select 칼럼명 from 테이블명
+Where 조건;
+
+view 생성
+여러 테이블에서 필드를 조회하는 뷰 명령어
+Create view view_name as
+Select a.칼럼, b.칼럼
+From table_a as a, table_b as b
+Where 조건
+
+view 대체 명령어
+뷰는 한번 생성하면 변경이 불가능하기 때문에 새로운 뷰로
+대체
+Replace 명령어 사용 => create 대신 replace 사용
+Create or replace view [view_name] as
+Select 칼럼1, 칼럼2 as 새로운 칼럼명
+From 테이블명;
+
+Select from view_name; => 뷰 조회
+Drop view_name => 뷰 삭제
+Show full tables => 뷰/테이블 같이 보기
+
+트리거 : 연쇄반응(작용)
+트리거 : 이벤트에 반응하여 자동으로 실행되는 구문
+이벤트가 발생했을 때 데이터의 무결성을 지켜야 할 때 사용
+트리거도 한번 생성하면 중복 생성이 안됨. 삭제하고 재 생성
+Drop trigger if exists 트리거명
+
+Delimiter // ; => 문자의 끝을 다른 기호로 표시할 때 사용
+Create trigger [트리거명] after | before 이벤트 on [테이블명]
+For each row
+Begin
+[실행구문;]
+end //
+
+Delimiter ; => 원상복구
+declare : 변수 선언
+Set : 변수에 값 할당
+New : 이벤트 발생한 행의 변경된 데이터
+Old : 이벤트 발생한 행의 이전 데이터
+
+프로시저(procedure) : 함수(메서드)
+일련의 쿼리를 마치 하나의 함수처럼 실행하기 위한 쿼리 집합
+장점 : 한번에 sql 구문 처리가 가능, 처리시간 단축, 유지보수b
+Drop procedure if exists [프로시저];
+Delimiter //
+Create procedure [프로시저] ([매개변수] => in, out, inout
+In 매개변수(in_name), out(out_mode))
+Begin
+[실행문]
+End//
+Delimiter ;
+Call 프로시저(); = 프로시저 호출
+
+
+프로시저 매개변수 3가지
+In, out, inout
+In : 프로시저에 값을 전달하며 프로시저 내부에서 값을 수정
+In 매개변수는 복사본만을 사용한다는 뜻
+Out : 프로시저의 값을 호출자에게 다시 전달. 프로시저가 반환 될 때 새로운 값이 호출자에게 리턴. 초기 값은 프로시저 내부에서 null
+Inout : in + out
+호출자에 의해 하나의 변수가 초기화 되고 변경된 값을 호출자에게 리턴
+
+프로시저 목록 확인(db 전체 목록 확인)
+show prodedure status;
+show prodedure status where db = 'shop'; // shop db에서만 확인
+show create procedure delete _buy;
+
+실수로 지운 데이터 복구
+
+alter table 테이블 enable row movementl
+flashback table 테이블 to timestamp
+(systimestamp = interval ‘분’ minute);

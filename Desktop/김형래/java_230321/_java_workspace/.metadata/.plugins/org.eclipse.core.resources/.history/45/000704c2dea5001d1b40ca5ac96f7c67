@@ -1,0 +1,23 @@
+package day05;
+
+public class String1 {
+
+	public static void main(String[] args) {
+		/* String 클래스 = 문자열을 다루는 클래스
+		 * String str = new String();
+		 * String str = "가나다"; // 일반 자료형처럼 이용 가능
+		 * 
+		 * 
+		 */
+		String str = "hello world";
+		System.out.println(str);
+		
+		
+		
+		
+		
+		
+		
+	}
+
+}

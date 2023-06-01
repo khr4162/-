@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>테두리 속성</title>
+  </head>
+  <style>
+    /* 
+    - inline 태그들의 가로길이는 컨텐츠의 길이로 설정(변경x)
+        크기 속성
+        - width : 가로 길이
+            - block 태그의 기본 가로는 100%
+            - 부모 크기의 100%
+            - min-width : 최소 가로 길이 지정
+            - max-width : 최대 가로 길이 지정
+        - height : 세로 길이
+            - 컨텐츠가 없으면 0. 있으면 컨텐츠의 높이만큼 자동할당
+     */
+    /* 가로x세로 200px인 박스를 생성하여 테두리가 실선이고
+        두깨가 2, 색상은 파란색 */
+    .div {
+      /*border: 1px solid;*/
+      height: 200px;
+      width: 200px;
+      border: 2px solid blue;
+    }
+    .div2 {
+      background-color: darkcyan;
+      height: 300px;
+      width: 250px;
+    }
+    .div3 {
+      border: 5px;
+      border-color: aqua;
+      border-style: solid;
+      height: 400px;
+      width: 200px;
+      border-radius: 50%;
+    }
+    p {
+      max-width: 500px;
+      min-width: 300px;
+    }
+  </style>
+  <body>
+    <p>안녕하세요. 반갑습니다. 예.</p>
+    <div class="div"></div>
+    <br />
+    <div class="div2"></div>
+    <br />
+    <div class="div3"></div>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+create database school;
+use school;
+
+create table student(
+stb_num varchar(10),
+stb_name varchar(20) not null,
+stb_major varchar(20),
+stb_term int,
+stb_point int,
+primary key(stb_num));
+
+create table attend(
+at_num int auto_increment,
+at_stb_num varchar(10),
+at_co_code varchar(12),
+at_year int,
+at_term int,
+at_mid int default 0,
+at_final int default 0,
+at_attend int default 0,
+at_hw int default 0,
+at_repetition varchar(1) default 'n',
+at_score varchar(4),
+primary key(at_num));
+
+create table course(
+co_code varchar(12),
+co_name varchar(20) not null,
+co_professor varchar(20),
+co_point int,
+co_time int,
+co_timetable varchar(40),
+primary key(co_code));
+
+Alter table attend add foreign key(at_stb_num) references student(stb_num);
+Alter table attend add foreign key(at_co_code) references course(co_code);
+
+Student
+Insert into student values
+('2019160123', '전봉준', '컴퓨터공학과', 2, 64),
+('2019456001', '강길동', '디자인', 3, 60),
+('2020123001', '강나래', '화학공학', 1, 21),
+('2020123020', '박철수', '화학공학', 1, 20),
+('2020160001', '강철수', '컴퓨터공학', 1, 20),
+('2020160002', '나영희', '컴퓨터공학', 1, 19);
+
+insert into course values
+('20201ipc001','컴퓨터개론','유관순',2,2,'화1A,1B,2A,2B'),
+('20202ipc002','기초전기','이순신',3,4,'월1A,1B,2A목1A,1B,2A'),
+('20201msc001','대학수학기초','홍길동',3,3,'월1A,1B,2A수1A,1B,2A'),
+('20202msc002','프로그래밍일반','임꺽정',3,3,'월1A,1B,2A목1A,1B,2A');
+
+insert into attend(at_stb_num, at_co_code) values
+('2020160001','20201msc001'),
+('2020160002','20201msc001'),
+('2019160123','20202msc002'),
+('2019456001','20202msc002'),
+('2020123001','20201ipc001'),
+('2020123020','20201ipc001'),
+('2019456001','20202ipc002'),
+('2019160123','20202ipc002'),
+('2020160001','20202msc002'),
+('2020160002','20202msc002'),
+('2019160123','20201msc001'),
+('2019456001','20201msc001'),
+('2020123001','20201msc001'),
+('2020123020','20201msc001'),
+('2019456001','20202msc002'),
+('2019160123','20202msc002');
+
+at_mid=40, at_final=40, at_attend=10, at_hw=10 / 총 합 = 100
+update attend set at_mid = 38, at_final = 35, at_attend = 7, at_hw = 9
+where at_num = 1;
+update attend set at_mid = 35, at_final = 40, at_attend = 10, at_hw = 6
+where at_num = 2;
+update attend set at_mid = 24, at_final = 34, at_attend = 6, at_hw = 8
+where at_num = 3;
+update attend set at_mid = 28, at_final = 32, at_attend = 3, at_hw = 3
+where at_num = 4;
+update attend set at_mid = 11, at_final = 24, at_attend = 8, at_hw = 7
+where at_num = 5;
+update attend set at_mid = 34, at_final = 35, at_attend = 7, at_hw = 10
+where at_num = 6;
+update attend set at_mid = 31, at_final = 31, at_attend = 10, at_hw = 10
+where at_num = 7;
+update attend set at_mid = 27, at_final = 21, at_attend = 2, at_hw = 5
+where at_num = 8;
+
+at_score = at_mid+at_final+at_attend+at_hw
+모든 합이 >=90 A, >=80 B, >=70 C, >=60 D, F
+update attend set at_score = 
+case when at_mid+at_final+at_attend+at_hw >=90 then 'A'
+when at_mid+at_final+at_attend+at_hw >=80 then 'B'
+when at_mid+at_final+at_attend+at_hw >=70 then 'C'
+when at_mid+at_final+at_attend+at_hw >=60 then 'D'
+else 'F'
+end;
+
+At_repetition 재수강여부는 score가 f거나 at_attend가 3점 이하라면 재수강 y 나머지는 n
+update attend set at_repetition =
+case when at_score ='F' or at_attend <=3 then 'y'
+else 'n'
+end;
+
+A를 받은 학생의 명단(학번, 이름) => join 사용
+select at_stb_num, stb_name, at_score from attend
+join student
+on at_stb_num = stb_num
+where at_score = 'A';
+
+재수강자 명단(학번, 이름, 재수강여부) => join 사용
+select at_stb_num, stb_name, at_repetition from attend
+join student
+on at_stb_num = stb_num
+where at_repetition = 'y';
+
+A학점 학생들의 과목(학번, 이름, 과목, 성적)
+select at_stb_num, stb_name, co_name, at_score from attend
+join student
+on at_stb_num = stb_num
+join course
+on at_co_code = co_code
+where at_score = 'A';
+
+1.
+select co_name, at_mid, at_final, at_attend, at_hw from attend
+join course
+on at_co_code = co_code
+group by co_name
+
+select co_name as'과목', sum(at_mid)as '중간합계', sum(at_final)as '기말합계',
+sum(at_attend)as '출석', sum(at_hw)as '과제' from attend
+join course
+on at_co_code = co_code
+group by co_name
+
+2.
+select at_score, sum(at_mid+at_final+at_attend+at_hw) from attend
+where not at_score is null
+group by at_score
+order by at_score
+
+select at_score as'학점', sum(at_mid)as '중간합계', sum(at_final)as '기말합계',
+sum(at_attend)as '출석', sum(at_hw)as '과제' from attend
+where at_score is not null
+group by at_score
+order by at_score
+
+3.
+select co_name, co_professor from attend
+join student
+on at_stb_num = stb_num
+join course
+on at_co_code = co_code
+where stb_name = '강철수'

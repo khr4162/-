@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>성적표</title>
+  </head>
+  <body>
+    <form action="" id="myForm">
+      <fieldset>
+        <legend>성적확인</legend>
+        이름 : <input type="text" id="name" name="name" /> <br />
+        국어 : <input type="text" id="kor" name="kor" /> <br />
+        영어 : <input type="text" id="eng" name="eng" /> <br />
+        수학 : <input type="text" id="math" name="math" /> <br />
+        <button type="button" onclick="clickEvent();">계산</button>
+      </fieldset>
+    </form>
+    <h3 id="sum"></h3>
+    <script>
+      function clickEvent() {
+        //input 창에 입력된 값은 value => string으로 입력됨.
+        let name = document.getElementById("name").value;
+        let kor = document.getElementById("kor").value;
+        let eng = document.getElementById("eng").value;
+        let math = document.getElementById("math").value;
+
+        // if문을 이용하여 점수가 0미만, 100이상이면 alert창을 띄워 잘못된 값이라고 안내
+        if (
+          kor < 0 ||
+          kor > 100 ||
+          eng < 0 ||
+          eng > 100 ||
+          math < 0 ||
+          math > 100
+        ) {
+          alert("0~100사이의 값을 입력해주세요");
+          document.getElementById("kor").value = "";
+          document.getElementById("eng").value = "";
+          document.getElementById("math").value = "";
+        } else {
+          //형변환 string => number
+          kor = parseInt(kor); //1000원 number('1000원') => NaN
+          eng = parseInt(eng);
+          math = parseInt(math);
+
+          let sum = kor + eng + math;
+          let avg = sum / 3;
+          let avg2 = Math.round(sum / 3); // 정수 단위로 반올림
+
+          //if문을 활용하여 평균이 60이상이면 합격여부를 pass, 아니면 fail로 표시
+          let acount = avg >= 60 ? "pass" : "fail";
+          // if(avg>=60){
+          //     acount='pass';
+          // }else{
+          //     acount='fail';
+          // }
+
+          //화면에 출력
+          document.getElementById(
+            "sum"
+          ).innerText = `이름:${name}, 합계:${sum}, 평균:${avg2}, 합격여부:${acount}`;
+        }
+      }
+    </script>
+  </body>
+</html>
