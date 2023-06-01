@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>할인율 구하기</title>
+  </head>
+  <body>
+    <form action="">
+      가격 : <input type="text" value="" name="price" id="price" />원 <br />
+      할인율 : <input type="text" name="sale" id="sale" />% <br />
+      <button type="button" onclick="clickEvent();">할인가격 계산</button>
+    </form>
+    <h3 id="main">할인 가격 :</h3>
+    <script>
+      function clickEvent() {
+        let price = document.getElementById("price").value;
+        let sale = document.getElementById("sale").value;
+        let per = sale / 100;
+        let sum = price * per;
+        let result = price - sum;
+        sum = parseInt(sum);
+        document.getElementById("main").innerText = `할인 가격 : ${result}`;
+      }
+    </script>
+  </body>
+</html>

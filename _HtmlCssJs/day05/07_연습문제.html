@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: mediumspringgreen;
+      }
+      .inner {
+        width: 500px;
+        background-color: rgb(219, 219, 219);
+        border-radius: 10px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        position: absolute;
+        transform: translate(50%, 100%);
+      }
+      .inner1 {
+        text-align: center;
+        padding-top: 30px;
+        margin: 0px;
+      }
+      a {
+        color: gray;
+      }
+
+      #id {
+        width: 80%;
+        height: 40px;
+        border: 0px solid white;
+        border-radius: 5px;
+        margin-left: 10%;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      #password {
+        width: 80%;
+        height: 40px;
+        display: block;
+        border: 0px solid white;
+        border-radius: 5px;
+        margin-top: 10px;
+        margin-left: 10%;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      #login {
+        width: 80%;
+        height: 50px;
+        border-radius: 5px;
+        border: 0px solid white;
+        display: block;
+        background-color: aquamarine;
+        color: white;
+        margin-top: 10px;
+        margin-left: 10%;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <div class="inner">
+        <input type="text" name="id" id="id" placeholder=" 아이디" />
+        <input
+          type="password"
+          name="pw"
+          id="password"
+          placeholder=" 비밀번호"
+        />
+        <button type="submit" id="login">로그인</button>
+        <div class="inner1">
+          <a href="">비밀번호를 잊어버리셨나요?</a>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>

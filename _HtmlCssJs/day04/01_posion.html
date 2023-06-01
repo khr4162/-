@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>position 속성</title>
+    <!-- 
+        속성을 좀 더 유동적으로 사용할 수 있게 위치 값을 부여하는 속성
+        - static : default, 별도로 지정하지 않을 경우
+        - fixed : 화면(screen 영역)의 특정 위치에 고정
+        - sticky : 스크롤에 반응하여 특정 위치에 고정
+        - relative : 엘리먼트들끼리 위치 값에 서로 영향을 줌(관계가 있음)
+        - absolute : 엘리먼트의 위치를 절대적인 위치로 지정
+            - 기준이 되는 엘리먼트는 relative 속성을 갖는 가장 가까운 조상
+            - 만약 가장 가까운 조상 태그 중 relative 속성을 갖는 엘리먼트가 없다면
+              body 태그라고 생각하면 됨
+        
+     -->
+    <style>
+      .fixed {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background-color: aquamarine;
+        width: 30px;
+        text-align: center;
+        border-radius: 10px;
+        padding-bottom: 5px;
+      }
+      nav {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        background-color: bisque;
+      }
+      a {
+        margin: 5px 10px;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>이것은 제목</h1>
+    <nav>
+      <a href="">menu 1</a>
+      <a href="">menu 2</a>
+      <a href="">menu 3</a>
+      <a href="">menu 4</a>
+      <a href="">menu 5</a>
+    </nav>
+    <div>
+      <a class="fixed" href="#top">top</a>
+    </div>
+    <style>
+      .outer,
+      .inner {
+        border: 1px solid rgb(187, 17, 173);
+      }
+      .outer {
+        position: relative;
+        width: 500px;
+        height: 200px;
+      }
+      .inner {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        width: 100px;
+        height: 100px;
+      }
+    </style>
+    <div class="outer">
+      <div class="inner">inner div</div>
+    </div>
+
+    <ol>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+      <li>dummy line</li>
+    </ol>
+  </body>
+</html>

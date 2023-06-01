@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>팝업창</title>
+  </head>
+  <body>
+    <h1>window 메서드 종류</h1>
+    <ul>
+      <li>window.open('url', 'window name', 'option(size, scroll..)')</li>
+      <li>
+        alert() : 경고창 띄움, prompt() : input 받을 수 있는 창, confirm() :
+        확인/취소 창
+      </li>
+      <li>
+        setInterval(function, millseconds); 일정 간격으로 지속적 실행문을 실행
+      </li>
+      <li>setTimeout(function, millseconds); 일정 시간 동안 실행시킬때 사용</li>
+    </ul>
+    <button type="button" onclick="openWindow()">열기</button>
+    <button type="button" onclick="closeWindow()">닫기</button>
+    <button type="button" onclick="alert1()">alert</button>
+    <button type="button" onclick="prompt1()">prompt</button>
+    <button type="button" onclick="confirm1()">confim</button>
+    <h3 id="msg"></h3>
+    <script>
+      let h3 = document.querySelector("h3");
+      function alert1() {
+        alert("경고 경고 경고");
+      }
+      function prompt1() {
+        let qwe = prompt("입력해");
+        h3.innerText = qwe;
+      }
+      function confirm1() {
+        let abc = confirm("둘 중에 하나만 골라");
+        if (abc) {
+          h3.innerText = "확인을 누르셨습니다";
+        } else {
+          h3.innerText = "취소를 누르셨습니다";
+        }
+      }
+      let myWindow;
+      function openWindow() {
+        myWindow = window.open("", "myWindow", "width=400, height=500");
+      }
+      function closeWindow() {
+        if (myWindow) {
+          myWindow.close();
+        }
+      }
+    </script>
+  </body>
+</html>

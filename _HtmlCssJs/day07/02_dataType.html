@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>변수사용</title>
+    <!-- 
+        자바 스크립트 변수
+        값을 담고 있는 메모리 공간의 이름
+        자바스크립트에서 변수는 선언(배정, 할당, 정의)하는 역할만 함.
+        var, let (ES6 부터는 let키워드를 사용하라고 적극 권장함.)
+        const
+        - 
+        var name = "hong";
+        var name = "kim"; 
+
+        - 지역변수 개념
+        let name = "hong";
+        - 변수의 값을 재할당 할수 있다.
+        - 유효하지 않은 범위에서는 재선언도 가능
+
+        const : 변수 재선언, 재할당이 불가능
+        - 고정된 값을 사용하는 의미 규칙, 참조, 룰, 객체 정의할 때 사용
+        - 선언한 이후 항상 고정값을 가지는 경우 사용
+
+     -->
+  </head>
+  <body>
+    <div class="box"></div>
+
+    <script>
+      // var name ="hong";
+      // console.log(name);
+      // var name ="kim";
+      // console.log(name);
+
+      let name = "hong2";
+      console.log(name);
+      name = 123;
+      console.log(name);
+      console.log(typeof name);
+
+      // 선언하지 않고 변수를 사용하는 것도 가능
+      // 선언없이 변수를 할당하면 그 변수는 전역영역에 영향을 미치므로
+      // 가급적 사용 X
+      let age = 20;
+      console.log(age);
+      let address = "seoul";
+      let hobby = "computer";
+      console.log("이름 : " + name);
+      console.log("나이 : ", age + "세");
+      // 벡틱 `` : 백틱 내부에 코드 삽입 가능 ${} 통해 삽입
+      console.log(`주소 : `, address);
+      console.log(`취미 : ${hobby}`);
+
+      // 카멜표기법 사용
+      // 숫자로 변수명 시작은 불가능
+      // const testName = "hong";
+      // console.log(testName);
+      // testname = "kim";
+      // console.log(testname);
+    </script>
+  </body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dataType</title>
+  </head>
+  <body>
+    <h1>변수나 상수에 할당할수 있는 값의 종류</h1>
+    <ul>
+      <li>
+        숫자 : Number => 정수, 실수, NaN(not a number : 숫자가 아님이라는 값)
+      </li>
+      <li>문자 : String => "", '', `` 으로 감싼 값들</li>
+      <li>불리언 : Boolean => true/false</li>
+      <li>
+        객체 : Object => 1개 이상의 데이터가 특정한 구조를 가지고 있는 형태
+        (아무것도 없는 사실도 1개로 취급) { }
+      </li>
+      <li>
+        배열 : Array => [1,2,3, ...] 형태로 이루어진 데이터 집합 (순서, 길이
+        있음.)
+      </li>
+      <li>알수없는 값 : null => 뭔가 있긴한데 파악이 안됨</li>
+      <li>미정된 값 : undefined : 값이 할당되지 않음</li>
+      <li>데이터 타입 확인 명령어 : typeof 변수 / 값</li>
+    </ul>
+
+    <script>
+      let num = 1234;
+      let str = "문자";
+      let bool = true;
+      let obj1 = new Object(); // new Object 자바 스크립트에서 제공하는 내장객체
+      let obj2 = {};
+      let arr = [1, 2, 3]; // 같은 자료의 값을 담고 있는 객체
+      let arr2 = new Array(); // 자바스트립에서 제공하는 Array 객체
+      let undi = undefined;
+      let nul = null;
+      let nudi2;
+
+      console.log(`num : ${typeof num}`);
+      console.log(`nan : ${typeof NaN}`);
+      console.log(`str : ${typeof str}`);
+      console.log(`bool : ${typeof bool}`);
+      console.log(`obj1 : ${typeof obj1}`);
+      console.log(`obj2 : ${typeof obj2}`);
+      console.log(`arr : ${typeof arr}`);
+      console.log(`arr2 : ${typeof arr2}`);
+      console.log(`undi : ${typeof undi}`);
+      console.log(`undi2 : ${typeof undi2}`);
+      console.log(`nul : ${typeof nul}`);
+    </script>
+
+    <h1>변수의 관리</h1>
+    <ol>
+      <li>
+        기본자료형(primative Type) : 값이 메모리의 주소값이 가르키는 곳에 직접
+        할당<br />
+        number, boolean, string(원래는 참조자료형이지만 사용편의성을 위해 같이
+        사용가능)
+      </li>
+      <li>
+        참조자료형(Reference Type) : 값이 저장되어 있는 메모리 주소값을 참조하고
+        있는 할당<br />
+        string, object, array, function, null, undefined
+      </li>
+    </ol>
+
+    <script>
+      // == 같다,  != 같지않다,
+      // == (값만 비교), ===(값과 타입 모두 비교)
+      // != (값만 비교), !==(값과 타입도 같지않은지 비교)
+
+      let num1 = 10;
+      let num2 = "10";
+      console.log("num1 == num2 : ", num1 == num2);
+      console.log("num1 === num2 : ", num1 === num2);
+    </script>
+  </body>
+</html>

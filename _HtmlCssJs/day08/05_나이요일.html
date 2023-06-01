@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나이구하기</title>
+  </head>
+  <body>
+    이름: <input type="text" id="name" /><br />
+    주민번호: <input type="text" id="rNum" /><br />
+    <button type="button" onclick="result();">확인</button>
+    <h3 id="result">
+      <!-- 이름, 생년월일, 성별, 나이 -->
+    </h3>
+    <script>
+      function result() {
+        let name = document.getElementById("name").value;
+        let rNum = document.getElementById("rNum").value;
+
+        let now = new Date(); //오늘날짜
+
+        let birth = rNum.substring(0, rNum.indexOf("-"));
+        console.log(birth);
+        let year = Number(birth.substring(0, 2)); //01
+        console.log(year);
+        let getNum = rNum.charAt(rNum.indexOf("-") + 1);
+        console.log(getNum);
+
+        //나이구하기 : 오늘날짜연도 - 태어난연도 (2000+01, 1900+01)
+
+        // 1900(1,2) -> 2000(3,4)
+        let mw = getNum == "1" || getNum == "3" ? "남" : "여";
+        let age =
+          getNum <= 2
+            ? now.getFullYear() - (1900 + year)
+            : now.getFullYear() - (2000 + year);
+        console.log(age);
+        console.log(mw);
+
+        document.getElementById(
+          "result"
+        ).innerText = `이름:${name}, 생년월일:${birth}, 나이:${age}, 성별:${mw}`;
+      }
+      // 오늘날짜 반환
+      let now = new Date();
+      console.log(now);
+      console.log(now.getFullYear()); //오늘날짜의 년도
+      console.log(now.getMonth() + 1); //0~11월  +1
+      console.log(now.getDate()); //일을 반환  1~31
+      console.log(now.getDay()); //요일 반환 0(일)~6(토)
+      //getHours() / getMinutes() / getSeconds()
+
+      let today = now.toLocaleDateString(); //현재 날짜형태로 변환
+      console.log(today);
+      let time = now.toLocaleTimeString(); //현재 시간
+      console.log(time);
+      let datetime = now.toLocaleString(); //현재 날짜 / 시간
+      console.log(datetime);
+
+      let a = now.getFullYear() - 2000;
+      console.log(a);
+    </script>
+  </body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>요일구하기</title>
+    <style>
+      .hi {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>오늘은??</h1>
+    <button type="button" id="btn">Today</button>
+    <!-- <h3 class="today">today</h3> -->
+    <h3 id="result" class="">
+      <!-- 오늘날짜와 요일을 출력 -->
+      <!-- 2023. 04. 13(목) -->
+      <!-- js에서도 switch문 가능 -->
+    </h3>
+
+    <script>
+      const btn = document.getElementById("btn");
+      btn.onclick = function () {
+        document.getElementById("result").classList.toggle("hi");
+      };
+
+      let now = new Date();
+      let date = now.toLocaleDateString();
+      let day = now.getDay(); //0~6
+      let week;
+      switch (day) {
+        case 0:
+          week = "일";
+          break;
+        case 1:
+          week = "월";
+          break;
+        case 2:
+          week = "화";
+          break;
+        case 3:
+          week = "수";
+          break;
+        case 4:
+          week = "목";
+          break;
+        case 5:
+          week = "금";
+          break;
+        case 6:
+          week = "토";
+          break;
+      }
+
+      document.getElementById("result").innerText = `${date}(${week})`;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+package day05;
+
+public class ArrayCopy {
+
+	public static void main(String[] args) {
+		/* 3개의 값을 담을 수 있는 String 배열 생성 후
+		 * 국어, 영어, 수학이라는 글자를 담은 후 출력(향상된 for문으로 출력)
+		 * 
+		 */
+			
+		String arr[] = new String[3]; //문자 배열
+		arr[0] = "국어";
+		arr[1] = "영어";
+		arr[2] = "수학";
+		
+		//향상된 for문
+		for(String tmp:arr) {
+			System.out.print(tmp+" ");
+		}
+	
+		
+		
+		
+	}
+
+}

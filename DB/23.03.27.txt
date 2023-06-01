@@ -1,0 +1,516 @@
+Microsoft Windows [Version 10.0.19045.2728]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\EZENIC-163>my sql -uroot -pezen
+'my'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.
+
+C:\Users\EZENIC-163>mysql -uroot -pezen
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.32 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use shop;
+Database changed
+mysql> shwo tables;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'shwo tables' at line 1
+mysql> show tables;
++----------------+
+| Tables_in_shop |
++----------------+
+| buy            |
+| product        |
++----------------+
+2 rows in set (0.01 sec)
+
+mysql> select * from buy;
++-----+----------+--------------+-------+--------+---------------------+
+| num | costomer | product_name | price | amount | buy_date            |
++-----+----------+--------------+-------+--------+---------------------+
+|   5 | 홍길동   | 폴라티셔츠   | 15000 |      3 | 2023-03-24 17:29:12 |
+|   6 | 홍길순   | 에이나시     |  9000 |      5 | 2023-03-24 17:30:18 |
+|   7 | 이순신   | 양털겨울코트 | 50000 |      1 | 2023-03-24 17:30:40 |
++-----+----------+--------------+-------+--------+---------------------+
+3 rows in set (0.01 sec)
+
+mysql> insert into buy(costomer, product_name, price, amount)
+    -> select '홍길순', name, price, 3 from prodect where num=3;
+ERROR 1146 (42S02): Table 'shop.prodect' doesn't exist
+mysql> insert into buy(costomer, product_name, price, amount)
+    -> select '홍길순', name, price, 3 from product where num=2;
+Query OK, 1 row affected (0.01 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> select * from buy;
++-----+----------+-------------------+-------+--------+---------------------+
+| num | costomer | product_name      | price | amount | buy_date            |
++-----+----------+-------------------+-------+--------+---------------------+
+|   5 | 홍길동   | 폴라티셔츠        | 15000 |      3 | 2023-03-24 17:29:12 |
+|   6 | 홍길순   | 에이나시          |  9000 |      5 | 2023-03-24 17:30:18 |
+|   7 | 이순신   | 양털겨울코트      | 50000 |      1 | 2023-03-24 17:30:40 |
+|   8 | 홍길순   | 순면라운드 반팔티 | 15900 |      3 | NULL                |
++-----+----------+-------------------+-------+--------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from product;
++-----+------------+--------------+---------------------+-------+--------+-------------+---------------+
+| num | type_a     | type_b       | name                | price | amount | sale_amount | register_date |
++-----+------------+--------------+---------------------+-------+--------+-------------+---------------+
+|   1 | 티셔츠     | 긴소매       | 폴라 티셔츠         | 15000 |     34 |         100 | 2020-10-15    |
+|   2 | 티셔츠     | 반소매       | 순면라운드 반팔티   | 15900 |     10 |         153 | 2020-09-15    |
+|   3 | 티셔츠     | 민소매       | 에이 나시           |  9000 |     33 |          33 | 2020-11-10    |
+|   4 | 패션운동복 | 트레이닝상의 | 피트니스상의        | 30000 |     34 |          55 | 2020-11-05    |
+|   5 | 패션운동복 | 트레이닝하의 | 피트니스히의        | 50000 |     55 |          34 | 2020-11-06    |
+|   6 | 아우터     | 재킷         | 양면 롱 후리스 자켓 | 23300 |    100 |          42 | 2020-11-05    |
+|   7 | 아우터     | 코트         | 양털 겨울 코트      | 50000 |     50 |          30 | 2020-10-31    |
+|   8 | 아우터     | 패딩         | 롱 패딩 점퍼        | 47400 |     10 |          45 | 2020-11-01    |
++-----+------------+--------------+---------------------+-------+--------+-------------+---------------+
+8 rows in set (0.00 sec)
+
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into buy(costomer, product_name, price, amount)
+    -> select '이순신', name, price, 3 from product where num=5;
+Query OK, 1 row affected (0.00 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> insert into buy(costomer, product_name, price, amount)
+    -> select '홍길동', name, price, 3 from product where num=4;
+Query OK, 1 row affected (0.00 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from buy;
++-----+----------+-------------------+-------+--------+---------------------+
+| num | costomer | product_name      | price | amount | buy_date            |
++-----+----------+-------------------+-------+--------+---------------------+
+|   5 | 홍길동   | 폴라티셔츠        | 15000 |      3 | 2023-03-24 17:29:12 |
+|   6 | 홍길순   | 에이나시          |  9000 |      5 | 2023-03-24 17:30:18 |
+|   7 | 이순신   | 양털겨울코트      | 50000 |      1 | 2023-03-24 17:30:40 |
+|   8 | 홍길순   | 순면라운드 반팔티 | 15900 |      3 | NULL                |
+|   9 | 이순신   | 피트니스히의      | 50000 |      3 | NULL                |
+|  10 | 홍길동   | 피트니스상의      | 30000 |      3 | NULL                |
++-----+----------+-------------------+-------+--------+---------------------+
+6 rows in set (0.00 sec)
+
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into buy(costomer, product_name, price, amount)
+    -> select '홍길동', name, price, 3 from product where num=5;
+Query OK, 1 row affected (0.00 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select mod(10,8);
++-----------+
+| mod(10,8) |
++-----------+
+|         2 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select round(123.57,.);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.)' at line 1
+mysql> select round(123.57,0);
++-----------------+
+| round(123.57,0) |
++-----------------+
+|             124 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select round(123456, -2);
++-------------------+
+| round(123456, -2) |
++-------------------+
+|            123500 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> delect fllor(rand()*10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delect fllor(rand()*10)' at line 1
+mysql> delect floor(rand()*10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delect floor(rand()*10)' at line 1
+mysql> select floor(rand()*10);
++------------------+
+| floor(rand()*10) |
++------------------+
+|                4 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*10);
++------------------+
+| floor(rand()*10) |
++------------------+
+|                9 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*10);
++------------------+
+| floor(rand()*10) |
++------------------+
+|                3 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat('ab','cd');
++-------------------+
+| concat('ab','cd') |
++-------------------+
+| abcd              |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select length('abc');
++---------------+
+| length('abc') |
++---------------+
+|             3 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select length('가나다라');
++--------------------+
+| length('가나다라') |
++--------------------+
+|                  8 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select char_length('가나가');
++-----------------------+
+| char_length('가나가') |
++-----------------------+
+|                     3 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select substr('abcdefg',1,2);
++-----------------------+
+| substr('abcdefg',1,2) |
++-----------------------+
+| ab                    |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select '110101-1234567';
++----------------+
+| 110101-1234567 |
++----------------+
+| 110101-1234567 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select '110101-1234567' as'주민등록번호';
++----------------+
+| 주민등록번호   |
++----------------+
+| 110101-1234567 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select insert('110101-1234567', 8, 7, *');
+    '>
+    '>
+    '> select insert('110101-1234567', 8, 7, '*');
+    '> wq
+    '> qw
+    '> .'
+    -> select insert('110101-1234567', 8, 7, '*');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*');
+
+
+select insert('110101-1234567', 8, 7, '*');
+wq
+qw
+.'
+select insert('11010' at line 1
+mysql> select insert('110101-1234567', 8, 7, '*');
++-------------------------------------+
+| insert('110101-1234567', 8, 7, '*') |
++-------------------------------------+
+| 110101-*                            |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select insert('110101-1234567', 8, 7, '*******');
++-------------------------------------------+
+| insert('110101-1234567', 8, 7, '*******') |
++-------------------------------------------+
+| 110101-*******                            |
++-------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select insert('110101-1234567', 8, 6, '*******');
++-------------------------------------------+
+| insert('110101-1234567', 8, 6, '*******') |
++-------------------------------------------+
+| 110101-*******7                           |
++-------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select insert('110101-1234567', 8, 7, '*******');
++-------------------------------------------+
+| insert('110101-1234567', 8, 7, '*******') |
++-------------------------------------------+
+| 110101-*******                            |
++-------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat('ab', space(5), 'cd');
++------------------------------+
+| concat('ab', space(5), 'cd') |
++------------------------------+
+| ab     cd                    |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select trim('           abc   de           ');
++----------------------------------------+
+| trim('           abc   de           ') |
++----------------------------------------+
+| abc   de                               |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select trim(both'a'a from 'aaabcdeaa');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'a from 'aaabcdeaa')' at line 1
+mysql> select trim(both'a' from 'aaabcdeaa');
++--------------------------------+
+| trim(both'a' from 'aaabcdeaa') |
++--------------------------------+
+| bcde                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select lpad('abc',5,'@@');
++--------------------+
+| lpad('abc',5,'@@') |
++--------------------+
+| @@abc              |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select lpad('abc',7,'@@');
++--------------------+
+| lpad('abc',7,'@@') |
++--------------------+
+| @@@@abc            |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select lpad('abc',7,'~');
++-------------------+
+| lpad('abc',7,'~') |
++-------------------+
+| ~~~~abc           |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select rpad('110101-1234567',13,'*******');
++-------------------------------------+
+| rpad('110101-1234567',13,'*******') |
++-------------------------------------+
+| 110101-123456                       |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select rpad('110101-1234567',14,'*******');
++-------------------------------------+
+| rpad('110101-1234567',14,'*******') |
++-------------------------------------+
+| 110101-1234567                      |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select rpad('abc', 5, '@');
++---------------------+
+| rpad('abc', 5, '@') |
++---------------------+
+| abc@@               |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select rpad('110101-', 14, '*');
++--------------------------+
+| rpad('110101-', 14, '*') |
++--------------------------+
+| 110101-*******           |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select repeat('abc',3);
++-----------------+
+| repeat('abc',3) |
++-----------------+
+| abcabcabc       |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select rpad('110101-',14,repeat('*',7));
++----------------------------------+
+| rpad('110101-',14,repeat('*',7)) |
++----------------------------------+
+| 110101-*******                   |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select lpad('abcd', 10, repeat('-',6));
++---------------------------------+
+| lpad('abcd', 10, repeat('-',6)) |
++---------------------------------+
+| ------abcd                      |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select lpad('abcd', 10, '-');
++-----------------------+
+| lpad('abcd', 10, '-') |
++-----------------------+
+| ------abcd            |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select reverse('asdf');
++-----------------+
+| reverse('asdf') |
++-----------------+
+| fdsa            |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select bin(10);
++---------+
+| bin(10) |
++---------+
+| 1010    |
++---------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> select oct(10);
++---------+
+| oct(10) |
++---------+
+| 12      |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select adddate('2023-03-27', interval 5day);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select adddate('2023-03-27', interval 5days);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select adddate('2023-03-27', interval '5day');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select adddate('2023-03-27', interval 5 day);
++---------------------------------------+
+| adddate('2023-03-27', interval 5 day) |
++---------------------------------------+
+| 2023-04-01                            |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select subdate('2023-03-27', interval 1 year);
++----------------------------------------+
+| subdate('2023-03-27', interval 1 year) |
++----------------------------------------+
+| 2022-03-27                             |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2023-03-27 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2023-03-27 12:35:22 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select adddate(now(), interval 5 day);
++--------------------------------+
+| adddate(now(), interval 5 day) |
++--------------------------------+
+| 2023-04-01 12:37:09            |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select addtime(now, '5:10:20');
+ERROR 1054 (42S22): Unknown column 'now' in 'field list'
+mysql> select addtime(now(), '5:10:20');
++---------------------------+
+| addtime(now(), '5:10:20') |
++---------------------------+
+| 2023-03-27 17:49:33       |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2023-03-27 12:42:29 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select year(now());
++-------------+
+| year(now()) |
++-------------+
+|        2023 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select(time(now());
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select (time(now());
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select datediff('2023-08-07', now());
++-------------------------------+
+| datediff('2023-08-07', now()) |
++-------------------------------+
+|                           133 |
++-------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select month(now());
++--------------+
+| month(now()) |
++--------------+
+|            3 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select monthname(now());
++------------------+
+| monthname(now()) |
++------------------+
+| March            |
++------------------+
+1 row in set (0.00 sec)
+
+mysql>

@@ -1,0 +1,110 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+div {
+  width: 100%;
+}
+p {
+  color: gray;
+}
+.header {
+  padding-left: 50px;
+  height: 60px;
+  border: 0px solid white;
+  color: white;
+  background-color: black;
+}
+.main-img {
+  height: 100vh;
+  background-image: url(/과제/과제2/노트북.jpg);
+  background-size: auto;
+  /* background-repeat: no-repeat; */
+}
+.subject {
+  height: 380px;
+}
+.content {
+  height: 1000px;
+  background-image: url(/과제/과제2/모니터.avif);
+  background-size: 380px;
+  background-repeat: no-repeat;
+  float: left;
+}
+.sub {
+  height: 380px;
+  background-size: 380px;
+  background-image: url(/과제/과제2/키보드.png);
+  /* background-repeat: no-repeat; */
+}
+.footer {
+  height: 200px;
+  background-size: 200px;
+  background-image: url(/과제/과제2/마우스.jpg);
+  /* background-repeat: no-repeat; */
+}
+@media screen and (min-width: 100px) {
+  .header {
+    height: 60px;
+  }
+  .main-img {
+    width: 100%;
+    height: 300px;
+    float: left;
+  }
+  .subject {
+    width: 100%;
+    height: 300px;
+    float: right;
+  }
+  .content {
+    width: 100%;
+    height: 500px;
+    float: left;
+  }
+  .sub {
+    width: 100%;
+    height: 300px;
+    float: right;
+  }
+  .footer {
+    clear: both;
+    width: 100%;
+    height: 200px;
+    float: right;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .header {
+    height: 60px;
+  }
+  .main-img {
+    width: 50%;
+    height: 100vh;
+    float: left;
+    /* position: absolute; */
+  }
+  .subject {
+    width: 50%;
+    height: 400px;
+    float: right;
+  }
+  .content {
+    width: 25%;
+    height: 400px;
+    /* clear: both; */
+    float: left;
+    /* position: relative; */
+  }
+  .sub {
+    width: 25%;
+    height: 200px;
+    float: right;
+  }
+  .footer {
+    width: 25%;
+    height: 200px;
+    float: right;
+  }
+}

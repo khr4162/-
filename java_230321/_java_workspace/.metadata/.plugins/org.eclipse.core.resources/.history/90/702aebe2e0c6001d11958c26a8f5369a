@@ -1,0 +1,29 @@
+package day17;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+
+public class BufferedReaderEx03 {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		/* out.txt파일을 읽어들여 map에 저장 후 합계 출력
+		 * 이름 : 점수
+		 * 총 합계 , 총 인원 출력
+		 */
+		HashMap<String, Integer> map = new HashMap<>();
+		BufferedReader br = null;
+		PrintWriter pw = null;
+		final String Path_OUT = "out2.txt";
+		br = new BufferedReader(new FileReader("out.txt"));
+		pw = new PrintWriter(new FileWriter(Path_OUT));
+		
+		pw.println();
+		
+	}
+
+}

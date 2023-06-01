@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>배열</title>
+  </head>
+  <body>
+    <h1>자바스크립의 배열은 유동배열 : 크기와 데이터가 변경이 가능하다.</h1>
+    <ul>
+      <li>const myArray = [1, 2, 3, 'a', 'b', 'c'];</li>
+      <li>
+        원래는 배열안의 데이터 타입은 같게 만드는게 룰 / 자바 스크립에서는
+        허용을 한다.
+      </li>
+      <li>
+        myArray=[]; : 초기값이 없는 빈 배열을 만든 후 데이터를 추가하여 사용
+      </li>
+      <li>
+        각 데이터들은 콤마(,)로 분리되고 분리된 자료는 index를 갖는다 => 0부터
+        시작
+      </li>
+      <li>length(길이) : 총길이를 확인할 수 있음.</li>
+    </ul>
+    <script>
+      // const myArray = new Array('a',1,2) : 잘 사용하지 않는 방법
+      const myArray = ["a", "b", `c`, 1, 2, 3];
+      console.log(myArray);
+      console.log(myArray.length);
+      console.log(myArray[2]);
+      console.log(myArray[myArray.length - 1]); //마지막 배열의 값 추출
+      myArray[6] = 4;
+      console.log(myArray);
+
+      //배열의 원소 추가 : 배열의 길이를 모른다고 가정
+      // 'add' 추가
+      myArray[myArray.length] = "add";
+      console.log(myArray);
+      myArray[myArray.length + 3] = "new";
+      console.log(myArray);
+      // 배열의 빈요소를 출력해보면 undefined 가 출력
+      console.log(myArray[8]);
+      console.log(myArray[9]);
+      console.log(myArray[10]);
+      //const 로 배열을 선언하게 되면 배열의 값을 변경은 가능하나 배열 자체를 변경할수는 없다.~!!
+      // 배열의 초기화가 필요한 로직은 let으로 선언한다!
+
+      //원래 배열은 같은 데이터 타입만 배열의 원소로 사용하는 것이 원칙~!!
+      //유사배열(연관배열) : associative Array > 배열 관련 메서드 중 사용할수 없는 것들이 있음.
+
+      //배열의 내용 탐색
+      for (let i = 0; i < myArray.length; i++) {
+        console.log(myArray[i]);
+      }
+
+      let assocArrayType = [
+        1,
+        true,
+        "hong",
+        undefined,
+        { k: "value" },
+        ["k", "g"],
+      ];
+      console.log(assocArrayType);
+      for (let i = 0; i < assocArrayType.length; i++) {
+        if (i == 4) {
+          console.log(assocArrayType[i].k);
+        } else {
+          console.log(assocArrayType[i]);
+        }
+      }
+    </script>
+  </body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>배열 관련 메서드</title>
+  </head>
+  <body>
+    <h1>배열 관련 메서드 : 유사(연관)배열에서는 사용 제한이 있음.</h1>
+    <ul>
+      <li>join() : 배열원소 사이에 문자를 삽입하여 새로운 문자열을 생성</li>
+      <li>
+        array.push(value) : 배열의 마지막에 value를 추가 =>
+        array[array.length]=value 과 같은의미
+      </li>
+      <li>push 후 배열의 길이를 리턴</li>
+      <li>pop() : 배열의 마지막 원소 제거 => 제거한 원소값 리턴</li>
+      <li>
+        shift() : 배열의 첫 원소를 제거하고 제거한 원소값을 리턴 => pop() 과
+        위치가 반대
+      </li>
+      <li>
+        unshift(value) : 배열의 가장앞에 원소를 추가하고, 추가 후 배열길이를
+        리턴
+      </li>
+    </ul>
+    <script>
+      const ourClass = [];
+      ourClass[ourClass.length] = "홍길동";
+      ourClass[ourClass.length] = "임꺽정";
+      ourClass[ourClass.length] = "홍길순";
+      ourClass[ourClass.length] = "이순신";
+      console.log(ourClass);
+      console.log(ourClass.push("김영이")); //총 길이를 리턴
+      console.log(ourClass);
+      ourClass.push({ n: 10, m: "f" });
+      console.log(ourClass);
+      ourClass.pop();
+      console.log(ourClass);
+      console.log(ourClass.pop());
+      ourClass.unshift("김철수");
+      console.log(ourClass);
+      ourClass.unshift("바둑이");
+      console.log(ourClass);
+      console.log(ourClass.shift());
+    </script>
+  </body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>배열의 정렬</title>
+  </head>
+  <body>
+    <h1>배열의 정렬은 문자기반으로 정렬이 됨.!!</h1>
+    <ul>
+      <li>array.sort() : 문자기준 오름차순 (ascending)</li>
+      <li>array.reverse() : 문자기준 내림차순(descending)</li>
+      <li>
+        정렬할 배열의 원소가 숫자일 경우 콜백함수를 이용하여 내부 연산을 하여
+        정렬
+      </li>
+      <li>array.sort(function(a,b){return a - b;}) : 순차 정렬</li>
+      <li>array.sort(function(a,b){ return b-a; }) : 역정렬</li>
+    </ul>
+    <script>
+      const myArr = [];
+      //1~45까지 랜덤숫자 6개 생성 배열에 저장 후 콘솔에 출력
+      for (let i = 0; i < 6; i++) {
+        myArr.push(Math.floor(Math.random() * 45) + 1);
+      }
+      myArr.sort(function (a, b) {
+        return a - b;
+      });
+      console.log(myArr);
+
+      const cars = [
+        { type: "Volvo", year: 2020 },
+        { type: "Benz", year: 2012 },
+        { type: "BMW", year: 2023 },
+      ];
+      console.log(cars);
+      // cars.sort();
+      cars.sort(function (a, b) {
+        return a.year - b.year;
+      });
+      console.log(cars);
+
+      //객체안의 문자값을 이용하여 정렬
+      cars.sort(function (a, b) {
+        let x = a.type.toLowerCase();
+        let y = b.type.toLowerCase();
+        if (x > y) {
+          return 1;
+        }
+        if (x < y) {
+          return -1;
+        }
+        return 0;
+      });
+      console.log(cars);
+
+      const memberObject = {
+        name: "hong",
+        age: 30,
+        married: true,
+        favors: ["Baseball", "Game", "Movie", "etc..."],
+      };
+      const people = [];
+      // 객체 5명을 people에 추가
+      for (let i = 0; i < 5; i++) {
+        people.push(memberObject);
+      }
+
+      console.log("----------------");
+      console.log(people);
+
+      console.log(people[0].name);
+      people[1].name = "kim";
+      console.log(people);
+      people[2].age = 50;
+      console.log(people);
+      people[3].married = false;
+      console.log(people);
+
+      //위쪽 객체에서 값을 빼서 하단 consol에 찍기
+      //배열의 순회
+      //for in : 객체에 사용 , for of : 배열에 사용하는 for문
+      console.log("-------------");
+      for (const member of people) {
+        console.log("--배열안--");
+        console.log("--배열안의 객체 탐색--");
+        for (const keyName in member) {
+          console.log("--객체 안의 값--");
+          if (keyName != "favors") {
+            //객체의 이름이 favors가 아니면...(일반 데이터)
+            console.log(member[keyName]); // member["name"] => hong
+          } else {
+            //배열을 다시 탐색
+            console.log("favors 안의 배열");
+            for (const favor of member[keyName]) {
+              console.log(favor);
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>배열 순환</title>
+  </head>
+  <body>
+    <h1>
+      배열의 순환할 수 있는 구조를 이용하여 특정 기능을 할 수 있는 메서드가
+      제공됨.
+    </h1>
+    <ul>
+      <li>array.forEach(callback function) : 일반 반복문과 유사한 형태</li>
+      <li>
+        array.map(callback function) : (forEach 수행)연산결과를 리턴하여 새로운
+        배열을 만들어줌
+      </li>
+      <li>
+        array.filter(callback function) : map처럼 수행하면서 연산결과를
+        리턴하는데, 비교연산의 결과에서 true에 해당하는 값만 필터링하여 리턴함.
+      </li>
+    </ul>
+    <script>
+      const numArr = [3, 2, 1, 5, 10, 13, 12, "a", "b", "c"];
+      const strArr = ["a", "f", "g", "k", "t", "u"];
+
+      numArr.forEach(function (elem_value, index, self) {
+        console.log(index, elem_value, self[index]);
+      });
+      console.log("--------(value, index, array)--------");
+      strArr.forEach(function (elem_value, index, self) {
+        console.log(index, elem_value, self[index]);
+      });
+      console.log("--------(value, index)--------");
+      strArr.forEach(function (elem_value, index) {
+        console.log(index, elem_value);
+      });
+      console.log("--------(value)--------");
+      strArr.forEach(function (elem_value) {
+        console.log(elem_value);
+      });
+      console.log("---invoke callback function---");
+      function printNumber(el, i, arr) {
+        console.log(i, el, arr[i]);
+      }
+      numArr.forEach(printNumber);
+
+      console.log("---map() invoke callback function---");
+      //map 배열을 리턴
+      function printNumberMap(el, i, arr) {
+        return `${i} : ${el} : ${arr[i]}`;
+      }
+      const newArr = strArr.map(printNumberMap);
+      console.log(newArr);
+      const newStrArr = strArr.map(function (el, i) {
+        return `${i} : ${el}`;
+      });
+      console.log(newStrArr);
+
+      const newStrArr2 = strArr.forEach(function (el, i) {
+        return `${i} : ${el}`; //처리만
+      });
+      console.log(newStrArr2); // undefined
+
+      console.log("---filter()---");
+      const newNumArr = numArr.filter(function (el, i, arr) {
+        return !isNaN(el);
+      });
+      console.log(newNumArr);
+    </script>
+  </body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>배열 순환 탐색 메서드</title>
+  </head>
+  <body>
+    <h1>
+      배열의 순환할 수 있는 구조를 이용하여 특정 기능을 할수 있는 메서드 제공
+    </h1>
+    <ul>
+      <li>
+        array.reduce(callback function(total, value, index, self), [init value])
+        : 연산의 누적값 리턴
+      </li>
+      <li>
+        array.reduceRight(reduce메서드와 동일) : 배열의 값을 우측에서
+        좌측방향으로 대입
+      </li>
+      <li>
+        array.every(callback function(value, index, self)) : 콜백함수의
+        리턴조건에 모든 배열의 값이 만족하면 true를 리턴 아니면 false를 리턴
+      </li>
+      <li>
+        array.some(callback function(value, index, self)): 콜백함수의 리턴조건에
+        만족하는 배열값이 존재하면 true, 아니면 false를 리턴
+      </li>
+      <li>
+        array.indexOf("str", [start index]) : 해당 문자열이 존재하는 배열
+        index를 리턴
+      </li>
+      <li>array.lastIndexOf("str",[start index]) : 뒤에서 부터 탐색</li>
+      <li>
+        array.find(callback function(value, index, slef)) : 검색 조건에 만족하는
+        첫번째 배열값 리턴 검색조건, 값 리턴이 쉬운편이여서 자주 사용함.
+      </li>
+      <li>
+        array.findIndex(callback function(value, index, slef)) : 검색조건에
+        만족하는 첫번째 배열요소의 index를 리턴
+      </li>
+      <li>
+        array.from('객체') : 순서가 있거나, 순환구조를 갖고 있는 객체를 배열로
+        변환
+      </li>
+      <li>
+        array.keys() : 배열이 사용중인 key(식별자, index)를 검색하여 새로운
+        배열로 리턴 => 객체에는 적용안됨.
+      </li>
+      <li>
+        array.entries() : index:value의 pair 구조의 값을 만들어 새로운 배열에
+        담아 리턴 => 객체에는 적용 안됨.
+      </li>
+      <li>
+        array.includes("찾고 싶은 값") : 배열에 찾는 값이 존재하면 true리턴
+      </li>
+    </ul>
+    <script>
+      const fruits = ["Apple", "Orange", "Apple", "Banana"];
+      let keyWord = "l";
+      let key =
+        fruits[fruits.indexOf("Apple", 1)].indexOf("App") + "App".length;
+      console.log(key);
+
+      const f = fruits.entries();
+      console.log(f);
+
+      for (const g of f) {
+        console.log(g);
+        console.log(typeof g);
+      }
+    </script>
+  </body>
+</html>

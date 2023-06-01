@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table,
+      td {
+        border: 1px solid gray;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        margin: 100px auto;
+      }
+      .pic {
+        width: 70px;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr id="board"></tr>
+      <!-- <input type="image" name=" id=" src="/같은그림찾기/001.webp"  -->
+    </table>
+    <script>
+      let model = [
+        "001.webp",
+        "001.webp",
+        "002.webp",
+        "002.webp",
+        "003.webp",
+        "003.webp",
+        "004.webp",
+        "004.webp",
+        "005.webp",
+        "005.webp",
+        "006.webp",
+        "006.webp",
+      ];
+      window.addEventListener("load", function () {
+        for (let a = 0; a < 10000; a++) {
+          let ran = Math.floor(Math.random() * 12);
+          let tmp = model[0];
+          model[0] = model[ran];
+          model[ran] = tmp;
+        }
+
+        let board = document.getElementById("board");
+        for (let b = 0; b < model.length; b++) {
+          board.innerHTML +=
+            "<td><input class='pic' type='image' src='/같은그림찾기/" +
+            model[b] +
+            "' value'" +
+            model[b] +
+            "'></td>";
+        }
+        let pic = document.querySelectorAll(".pic");
+        setTimeout(function () {
+          for (let c = 0; c < pic.length; c++) {
+            pic[c].style = "opacity:0.3";
+          }
+        }, 1000);
+        let count = 0;
+        let success = 0;
+        let onePic = null;
+        let twoPic = null;
+        for (let d = 0; d < pic.length; d++) {
+          pic[d].addEventListener("click", function () {
+            console.log(this.value);
+            this.style = "opacity:1";
+            count++;
+            console.log(count);
+            if (count == 1) {
+              onePic = this;
+              console.log(onePic);
+            } else if (count == 2) {
+              twoPic = this;
+              console.log(twoPic);
+              if (onePic.value == twoPic.value) {
+                success++;
+                if (success == model.length / 2) {
+                  alert("success!!");
+                }
+                event.stopPropagation();
+                event.preventDefault();
+              } else {
+                setTimeout(function () {
+                  console.log(onePic, twoPic);
+                  onePic.style = "opacity:0.3";
+                  twoPic.style = "opacity:0.3";
+                }, 300);
+              }
+              count = 0;
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

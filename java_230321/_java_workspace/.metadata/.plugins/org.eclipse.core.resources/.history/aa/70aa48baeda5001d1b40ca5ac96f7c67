@@ -1,0 +1,15 @@
+package day05;
+
+public class 배열연습4 {
+
+	public static void main(String[] args) {
+		/* 2차원 배열
+		 * 자료형 배열명[][] = new 자료형[길이][길이];
+		 * 
+		 * 
+		 * \
+		 */
+
+	}
+
+}

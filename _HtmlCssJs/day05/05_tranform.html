@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 
+        tranform : 회전, 이동, 확대 등을 할 때 사용
+            - translate(x, y) : x축으로 x만큼, y축으로 y만큼
+            - translate(x) : x축만 이동
+            - translate(y) : y축만 이동
+            - scale(w, h) : 가로로 w배, 세로로 h배만큼 커짐. 값을 0으로하면 안보임
+            - scale(w) : 가로만 확대
+            - scale(h) : 세로만 확대
+            - rotate(a) : a각도만큼 시계방향 회전 / 단위 : deg
+            - skaw(xa, ya) : 기울림 / 단위 : deg
+            - skawX(xa) : x축으로 xa만큼 기울림 / 단위 : deg
+            - skawY(ya) : y축으로 ya만큼 기울림 / 단위 : deg
+            - 
+        -->
+    <style>
+      .box {
+        width: 200px;
+        height: 50px;
+        background-color: yellowgreen;
+        /* animation-name: translate;
+        animation-duration: 1s;
+        animation-iteration-count: infinite; */
+        animation: skaw, 3s, 1;
+      }
+      @keyframes translate {
+        0% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(50px, 50px);
+        }
+        100% {
+          transform: translate(0, 0);
+        }
+      }
+      @keyframes scale {
+        from {
+          transform: scale(1, 1);
+        }
+        50% {
+          transform: scale(2, 2);
+        }
+        to {
+          transform: scale(1, 1);
+        }
+      }
+      @keyframes rotate {
+        from {
+          transform: rotate(1, 1);
+        }
+        50% {
+          transform: rotate(2, 2);
+        }
+        to {
+          transform: rotate(1, 1);
+        }
+      }
+      @keyframes skaw {
+        from {
+          transform: skew(x1, x90);
+        }
+        50% {
+          transform: skew(x90, x180);
+        }
+        to {
+          transform: skew(x180, x270);
+        }
+      }
+      /* 
+        transition
+        - 다른 속성 값이 변화할때 서서히 변화하여 애니메이션 효과가
+          발생하는 것처럼 보이게 함.
+        - transition 속성명 전환시간;
+        - 속성이 전환시간동안 서서히 변화
+      */
+      .font {
+        font-size: 20px;
+        transition: font-size 2s;
+      }
+      .font:hover {
+        font-size: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+    <div class="font">hello</div>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <title>Document</title>
+    <style>
+      @keyframes jump {
+        from {
+          bottom: 50px;
+        }
+        50% {
+          bottom: 100px;
+        }
+        to {
+          bottom: 50px;
+        }
+      }
+      @keyframes jump1 {
+        from {
+          bottom: 50px;
+        }
+        50% {
+          bottom: 200px;
+        }
+        to {
+          bottom: 50px;
+        }
+      }
+      .jump {
+        animation-name: jump;
+        animation-duration: 0.5s;
+        animation-iteration-count: infinite;
+        font-size: 50px;
+        font-weight: bold;
+        position: absolute;
+        bottom: 50px;
+      }
+      .jump2 {
+        animation-name: jump1;
+        animation-duration: 0.5s;
+        animation-iteration-count: infinite;
+        font-size: 50px;
+        font-weight: bold;
+        position: absolute;
+        bottom: 50px;
+        left: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="jump">jump jump</span>
+    <span class="material-symbols-outlined jump2"> adjust </span>
+  </body>
+</html>

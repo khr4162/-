@@ -1,0 +1,66 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 10%,
+      rgba(255, 255, 255, 0.1) 25%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0.3) 75%
+    ),
+    url(/장신구/메인\ 이미지.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+ul {
+  list-style: none;
+}
+.menu > a {
+  /* 메인 제목 */
+  float: left;
+  /* height: 60px; */
+  line-height: 60px;
+  vertical-align: middle;
+  font-size: 25px;
+  font-weight: bold;
+  padding-left: 60px;
+  padding-top: 30px;
+}
+.menu > ul {
+  float: right;
+  padding-top: 30px;
+}
+.menu > ul > li {
+  display: inline;
+  margin-left: 10px;
+}
+.menu > ul > li > a {
+  /* 상단 메뉴 글자 */
+  font-size: 17px;
+  font-weight: 700;
+  padding-right: 50px;
+}
+.masage {
+  padding-top: 300px;
+  font-size: 60px;
+  color: black;
+  text-align: center;
+}
+.more {
+  padding: 10px;
+  margin: auto;
+  margin-top: 50px;
+  border-radius: 20px;
+  width: 200px;
+  border: 1px solid green;
+  font-size: 30px;
+  text-align: center;
+}
