@@ -1,0 +1,28 @@
+이클립스 실행 후 
+New -> New Daynamic Web Project 
+Name : jstl_study 
+모듈 버전 
+3.1    (콤뱃 8.5.88 기준)
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+Package Explorer 로 변경
+Window - Show view - other - package Explorer 선택 
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+Preferences 
+
+Java - Installed JREs - Add - Standard VM - Directory - C - Program Files - Java - jdk1 선택 - jre 체크 해제 후, jdk 체크 - Apply
+
+Compiler 버전 : 1.8
+
+enco검색 - Workspace - UTF-8 / Unix
+Web - CSS Files ( UTF-8 ) //  HTML ( UTF-8) // JSP Files ( UTF-8 ) // XML Files (UTF-8) 로 변경 
+
+web 검색 후 , Web Browser - Chrome 체크 / Use external web browser 체크
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+좌측 jstl_study 우클릭 - Java Build Path - Libraries - Edit - Workspace default Jre 체크 - Finish - Apply
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+Servers 클릭 - Apache - 톰캣 8.5 - 브라우저 - jsp_workspace - 톰캣 폴더 선택 - jstl_study 클릭후 Add
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+Servers 톰캣 8.5 더블클릭 - Port Name HTTP/1.1 8080 -> Port Number를 8088로 변경\
+Modules 클릭 - Edit - Path: 를 / 로 변경
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+jstl_study 우클릭 - Project Facets - Java 1.8로 변경 , Runtimes 8.5 톰캣 선택

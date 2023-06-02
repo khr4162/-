@@ -28,8 +28,11 @@ $ git rm [file name] 원격 저장소와 로컬 저장소에 있는 파일 삭�
 $ git clone 주소
 $ git remote -v
 $ git remote add origin
+$ git remote rm origin - 리모트 삭제
 $ git pull origin aster
 $ git add .
 $ git add .
 $ git commit -m '코멘트'
-$ git push origin +master
+$ git push origin master
+git push --force - 원격 변경 사항 덮어쓰기
+git pull origin master
